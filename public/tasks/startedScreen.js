@@ -5,7 +5,7 @@ function drawStarting(txtWidDiv = 20) {
     ellipse(width, height, 20)
     noStroke();
     fill(0, 0, 0, 200);
-    rect(-wid / 2, -hei / 2, wid, hei * 2);
+    rect(-wid / 2, -hei / 2, wid, hei);
     textSize(min(wid, hei) / txtWidDiv);
     fill(255);
     textAlign(CENTER, CENTER);
