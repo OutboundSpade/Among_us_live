@@ -12,7 +12,7 @@
     "among_us_live"
   ],
   "author": "C Raymond Steen IV",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "nodemon": "^2.0.6",
