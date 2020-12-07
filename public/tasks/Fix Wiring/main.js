@@ -7,7 +7,7 @@ let wireTip;
 function preload() {
     amongUsFont = loadFont("../../among us font.ttf");
     fixWiringBackdrop = loadImage("./images/Fix_Wiring_Backdrop.png");
-    wireTip = loadImage("./images/wire.png");
+    wireTip = loadImage("./images/wire.PNG");
 }
 let hasStarted = false;
 let colors = {};
