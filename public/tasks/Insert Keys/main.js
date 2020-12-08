@@ -138,6 +138,7 @@ function draw() {
     }
     pop();
 }
+let emitted = false;
 
 function useInput(x, y) {
     x -= width / 2;
@@ -152,9 +153,13 @@ function useInput(x, y) {
             isDraggingKey = true;
         }
 
-        if (keyInSlot && dist(x, y, chosenKey.x, chosenKey.y) <= 25) {
+        if (keyInSlot && dist(x, y, chosenKey.x, chosenKey.y) <= 25 && !hasFinished) {
             rotateKey = true;
             setTimeout(() => {
+                if (!emitted) {
+                    socket.emit('doneTask');
+                    emitted = true;
+                }
                 hasFinished = true;
             }, 700);
             setTimeout(() => {

@@ -196,13 +196,20 @@ function useInput(x, y) {
 
     }
 }
+let emitted = false;
 
 function releaseInput() {
     draggingIndex = -1;
 
     if (Object.keys(connections).length >= 4) {
         //done task
+        if (!emitted) {
+            console.log("emmitted")
+            socket.emit('doneTask');
+            emitted = true;
+        }
         setTimeout(() => {
+
             noLoop();
             drawFinished();
         }, 300);

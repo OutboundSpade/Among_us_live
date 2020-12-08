@@ -14,6 +14,9 @@ const io = socket(server);
 
 var clients = {};
 var clientsType = {};
+var playerColors = require('./players.json');
+var totalPlayers = Object.keys(playerColors).length;
+var points = 0;
 io.sockets.on('connection', function (socket) {
     clients[socket.id] = socket;
 
@@ -25,6 +28,15 @@ io.sockets.on('connection', function (socket) {
         delete clients[socket.id];
         delete clientsType[socket.id];
         showClients("DISCONNECT");
+    });
+    socket.on('resetPoints', () => {
+        if (clientsType[socket.id] == "host") {
+            points = 0;
+        }
+    });
+    socket.on('doneTask', () => {
+        points += 1;
+        console.log(`Done Task - ${points} points`);
     });
 
 });
