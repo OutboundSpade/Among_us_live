@@ -1,2 +1,2 @@
 # Among us live
-Among us but in real live. Nodejs host required
+Among us but in real life. Nodejs host required
