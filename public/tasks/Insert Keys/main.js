@@ -19,6 +19,7 @@ let hasStarted = false;
 let hasFinished = false;
 let keyPos = [];
 let chosenKey;
+let socket;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -41,6 +42,12 @@ function setup() {
     ];
 
     chosenKey = random(keyPos);
+
+    socket = io();
+    socket.on('connect', () => {
+        socket.emit("type", "Insert Keys");
+        console.log("connected to server!");
+    });
 }
 
 let scl;

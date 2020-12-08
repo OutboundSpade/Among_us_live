@@ -18,6 +18,8 @@ function setup() {
     textFont(amongUsFont);
     wiringTask = new TaskSelection(200, 150, "Fix Wiring", wiringImage, 1.1, 1.65);
     insertKeysTask = new TaskSelection(1200, 150, "Insert Keys", insertKeysImage, 1.1, 1.65);
+
+
 }
 let scl;
 

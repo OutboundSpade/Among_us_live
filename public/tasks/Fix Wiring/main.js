@@ -17,6 +17,7 @@ let shuffledColors2 = [];
 let connections = {};
 let draggingIndex = -1;
 let correctConnections = {};
+let socket;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -38,6 +39,12 @@ function setup() {
     ]
     shuffledColors = shuffle(Object.keys(colors), false);
     shuffledColors2 = shuffle(Object.keys(colors), false);
+
+    socket = io();
+    socket.on('connect', () => {
+        socket.emit("type", "Fix Wiring");
+        console.log("connected to server!");
+    });
 
 }
 
