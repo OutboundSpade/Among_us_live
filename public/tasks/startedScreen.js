@@ -17,8 +17,8 @@ function drawFinished(txtWidDiv = 50) {
     wid = width * scl;
     hei = height * scl;
     push();
-    stroke(0);
-    strokeWeight(2);
+    // ellipse(width, height, 20)
+    noStroke();
     fill(0, 0, 0, 200);
     rect(-wid / 2, -hei / 2, 99999, 99999);
     textSize(txtWidDiv);
