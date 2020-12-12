@@ -22,27 +22,31 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('type', (type) => {
         clientsType[socket.id] = type;
-        updateHost();
+        updateTaskCount();
         showClients("CONNECT");
     });
     socket.on('disconnect', () => {
         delete clients[socket.id];
         delete clientsType[socket.id];
-        updateHost();
+        updateTaskCount();
         showClients("DISCONNECT");
     });
     socket.on('resetPoints', () => {
         if (clientsType[socket.id] == "host") {
             points = 0;
+            console.log('resetPoints');
         }
     });
     socket.on('doneTask', () => {
         points += 1;
         console.log(`Done Task - ${points} points`);
+        if (getKeyByValue(clientsType, 'host') != undefined) {
+            clients[getKeyByValue(clientsType, 'host')].emit('updatePoints', points);
+        }
     });
 });
 
-function updateHost() {
+function updateTaskCount() {
     if (getKeyByValue(clientsType, 'host') != undefined) {
         clients[getKeyByValue(clientsType, 'host')].emit('updateNumDevices', Object.values(clientsType).filter(type => type != 'host').length);
     }

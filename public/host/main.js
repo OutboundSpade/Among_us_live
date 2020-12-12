@@ -30,18 +30,25 @@ function setup() {
     socket = io();
     socket.on('connect', () => {
         socket.emit("type", "host");
+        socket.emit('resetPoints');
         console.log("connected to server!");
     });
     socket.on('updateNumDevices', (data) => {
         totalDevicesConnect = data;
+    });
+    socket.on('updatePoints', pts => {
+        points = pts;
+
     });
 }
 let scl;
 let totalDevicesConnect = 0;
 let totalPeoplePlaying = 0;
 let tasksPerPerson = 0;
-let totalCount = 0;
+let totalCount = totalPeoplePlaying * tasksPerPerson;
 let menu = "";
+let barWid;
+let points = 0;
 
 function draw() {
     background(0);
@@ -50,8 +57,11 @@ function draw() {
         push();
         translate(width / 2, height / 2);
         scale(scl);
-        textSize(65);
-        text(`Tasks Connected:\n${totalDevicesConnect}`, 0, -100);
+        textSize(50);
+        text(`Tasks Connected:\n${totalDevicesConnect}`, 0, -50);
+        textSize(40);
+        text(`Total Players`, -250, -150);
+        text(`Tasks Per Person`, 250, -150);
         tasksPerPerson = tasksPerPersonNumSelection.num;
         totalPeoplePlaying = peopleNumSelection.num;
         tasksPerPersonNumSelection.show();
@@ -66,18 +76,32 @@ function draw() {
         scale(tempImgScl);
         image(taskBarBlank, 0, -50, 838, 54);
         //Draw Bar here
+        rectMode(CORNER);
+        noStroke();
+        fill(67, 217, 68);
+        barWid = (points / totalCount) * 827;
+        rect(-838 / 2 + 4, -54 / 0.77, barWid, 37);
 
         image(taskBarText, 0, -50, 838, 54);
+
+        if (points == totalCount) {
+            background(0, 0, 0, 120);
+            textSize(120);
+
+            text("GAME OVER\nCREWMATES WIN!", 0, 0);
+        }
         pop();
     } else {
         menu = "main";
     }
+
 
 }
 
 function useInput(x, y) {
     if (menu == "main") {
         if (startButton.isHovering(x, y) && totalPeoplePlaying > 0 && tasksPerPerson > 0 && totalDevicesConnect > 0) {
+            totalCount = totalPeoplePlaying * tasksPerPerson;
             menu = "taskBar";
         }
         x -= width / 2;
