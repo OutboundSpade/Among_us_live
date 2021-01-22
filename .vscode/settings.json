@@ -6,5 +6,5 @@
 
     // Complete functions with their parameter signature.
     "javascript.suggest.completeFunctionCalls": true,
-    "git.enableCommitSigning": true,
+    // "git.enableCommitSigning": true,
 }
